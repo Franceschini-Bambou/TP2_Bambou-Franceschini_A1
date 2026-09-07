@@ -18,5 +18,18 @@
   },
   "devDependencies": {
     "@types/jsdom": "^30.0.0"
-  }
+  },
+  "description": "- URL site WEB :\r - URL Notebook Observable :\r - Nom :\r - Prénom :\r - Nom binome :\r - Prénom binome :",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Franceschini-Bambou/TP2_Bambou-Franceschini_A1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Franceschini-Bambou/TP2_Bambou-Franceschini_A1/issues"
+  },
+  "homepage": "https://github.com/Franceschini-Bambou/TP2_Bambou-Franceschini_A1#readme"
 }

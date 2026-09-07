@@ -1,0 +1,21 @@
+---
+import GraphicSpecies from "../../components/GraphicSpecies.astro";
+---
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Manchots - Adelie</title>
+  </head>
+  <body class="p-8 bg-gray-50">
+    <nav class="mb-6 flex gap-4">
+      <a href="/species/Adelie" class="font-bold text-blue-600">Adelie</a>
+      <a href="/species/Gentoo" class="text-gray-600 hover:underline">Gentoo</a>
+      <a href="/species/Chinstrap" class="text-gray-600 hover:underline">Chinstrap</a>
+    </nav>
+
+    <h1 class="text-2xl font-bold mb-4">Espèce : Adelie</h1>
+    
+    <GraphicSpecies species="Adelie" />
+  </body>
+</html>

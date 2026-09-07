@@ -1,0 +1,28 @@
+---
+import * as Plot from "@observablehq/plot";
+import { JSDOM } from "jsdom";
+
+const { species } = Astro.props;
+
+import penguins from "../assets/penguins.json";
+
+const filteredData = penguins.filter((p) => p.species === species);
+
+const { document } = new JSDOM("<!DOCTYPE html><html><body></body></html>").window;
+
+const plot = Plot.dot(filteredData, {
+  x: "bill_length_mm",
+  y: "bill_depth_mm",
+  stroke: "sex"
+}).plot({
+  document,
+  inset: 10,
+  grid: true,
+  title: `Manchots de l'espèce ${species}`
+});
+---
+
+<div class="my-4 p-4 border rounded-lg shadow-sm bg-white">
+  <!-- On injecte le SVG généré par Plot -->
+  <Fragment set:html={plot.outerHTML} />
+</div>

@@ -1,0 +1,10 @@
+---
+const { slug, title, hook } = Astro.props;
+---
+
+<a class="plot-card card" href={`/graphiques/${slug}/`}>
+  <span class="plot-card__number">Graphique</span>
+  <h2>{title}</h2>
+  <p>{hook}</p>
+  <span class="plot-card__link">Voir le graphique <span aria-hidden="true">→</span></span>
+</a>

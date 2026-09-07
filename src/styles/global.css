@@ -1,1 +1,206 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --text-light: #fffaf2;
+  --text-dark: #18222b;
+  --accent: #f5c451;
+  --panel: rgba(18, 38, 50, 0.72);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-light);
+  min-height: 100vh;
+  /* L'effet coucher de soleil moderne */
+  background: linear-gradient(-45deg, #2b1055, #7597de, #ff7e5f, #feb47b);
+  background-size: 400% 400%;
+  animation: sunsetGlow 15s ease infinite;
+}
+
+/* Animation douce du dégradé */
+@keyframes sunsetGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Conteneur principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 3rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: opacity 0.3s ease;
+}
+
+nav a:hover {
+  opacity: 0.7;
+}
+
+/* Grille pour les cartes */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Style des Cartes (Glassmorphism) */
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.page-header {
+  max-width: 720px;
+  padding: 4rem 0 5rem;
+}
+
+.eyebrow,
+.plot-card__number {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.page-header h1 {
+  margin: 0.75rem 0 1rem;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 0.98;
+}
+
+.page-header > p:last-child,
+.detail-header > p:last-child {
+  max-width: 540px;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  opacity: 0.86;
+}
+
+.section-title {
+  margin-bottom: 1.5rem;
+}
+
+.plot-card {
+  display: flex;
+  min-height: 260px;
+  flex-direction: column;
+  color: var(--text-light);
+  text-decoration: none;
+}
+
+.plot-card h2 {
+  margin: 1.5rem 0 0.75rem;
+}
+
+.plot-card p {
+  margin: 0;
+}
+
+.plot-card__link {
+  margin-top: auto;
+  padding-top: 2rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.plot-card__link span {
+  display: inline-block;
+  margin-left: 0.35rem;
+  transition: transform 0.2s ease;
+}
+
+.plot-card:hover .plot-card__link span {
+  transform: translateX(0.3rem);
+}
+
+.detail-page {
+  padding-top: 2rem;
+}
+
+.back-link {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.detail-header {
+  padding: 4rem 0 2rem;
+}
+
+.detail-header h1 {
+  margin: 0.75rem 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.chart-panel {
+  overflow-x: auto;
+  padding: 1rem;
+  color: var(--text-dark);
+  background: rgba(255, 250, 242, 0.96);
+  border-radius: 8px;
+}
+
+.chart-panel figure {
+  min-width: 600px;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1.25rem;
+  }
+
+  .page-header {
+    padding: 3rem 0 4rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
