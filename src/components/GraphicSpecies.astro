@@ -4,39 +4,52 @@ import { JSDOM } from "jsdom";
 import penguins from "../assets/penguins.json";
 
 const { species } = Astro.props;
-const filteredData = penguins.filter((p) => p.species === species);
+const penguinsSpecies = penguins.filter(({ species: currentSpecies }) => currentSpecies === species);
+
+// Correction des clés : culmen_length_mm et culmen_depth_mm au lieu de bill_*
+const validSpeciesData = penguinsSpecies.filter(
+  (d) => d.culmen_length_mm != null && d.culmen_depth_mm != null && d.sex != null,
+);
+
 const { document } = new JSDOM("<!DOCTYPE html><html><body></body></html>").window;
 
-const plot = Plot.plot({
+const sexColors: Record<string, string> = {
+  FEMALE: "#4269d0",
+  MALE: "#efb118",
+  default: "#ff725c",
+};
+
+const getSexColor = (sex: string | undefined | null): string => {
+  const normalizedSex = String(sex ?? "default").toUpperCase();
+  return sexColors[normalizedSex] ?? sexColors.default;
+};
+
+const plot = Plot.dot(validSpeciesData, {
+  x: (d) => d.culmen_length_mm,
+  y: (d) => d.culmen_depth_mm,
+  stroke: (d) => getSexColor(d.sex),
+  fill: (d) => getSexColor(d.sex),
+  r: 4,
+  opacity: 0.85,
+  tip: true,
+}).plot({
   document,
   inset: 12,
   grid: true,
-  nice: true,
-  title: `Manchots ${species}`,
   x: { label: "Longueur du bec (mm)", nice: true },
   y: { label: "Profondeur du bec (mm)", nice: true },
-  color: { legend: true },
+  title: `Manchots ${species}`,
   style: {
-    background: "rgba(255,255,255,0.92)",
-    fontFamily: "DM Sans, sans-serif",
+    background: "#ffffff",
+    color: "#0f172a", // Force un texte sombre bien lisible
+    fontFamily: "system-ui, sans-serif",
     fontSize: "12px",
   },
-  marks: [
-    Plot.dot(filteredData, {
-      x: "bill_length_mm",
-      y: "bill_depth_mm",
-      stroke: "sex",
-      fill: "sex",
-      r: 4,
-      opacity: 0.9,
-      tip: true,
-    }),
-  ],
 });
 ---
 
-<div class="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/25 p-3 shadow-2xl shadow-slate-950/20 backdrop-blur-sm">
-  <div class="rounded-xl border border-white/10 bg-white/90 p-2">
+<div class="overflow-hidden rounded-2xl border border-white/15 bg-slate-900/40 p-3 shadow-2xl backdrop-blur-md">
+  <div class="rounded-xl bg-white p-2 text-slate-900">
     <Fragment set:html={plot.outerHTML} />
   </div>
 </div>
