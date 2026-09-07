@@ -19,6 +19,12 @@ const sexColors: Record<string, string> = {
   default: "#ff725c",
 };
 
+const legendItems = [
+  { label: "FEMELLE", color: sexColors.FEMALE },
+  { label: "MALE", color: sexColors.MALE },
+  { label: "Autre", color: sexColors.default },
+];
+
 const getSexColor = (sex: string | undefined | null): string => {
   const normalizedSex = String(sex ?? "default").toUpperCase();
   return sexColors[normalizedSex] ?? sexColors.default;
@@ -50,6 +56,17 @@ const plot = Plot.dot(validSpeciesData, {
 
 <div class="overflow-hidden rounded-2xl border border-white/15 bg-slate-900/40 p-3 shadow-2xl backdrop-blur-md">
   <div class="rounded-xl bg-white p-2 text-slate-900">
+    <div class="mb-2 flex flex-wrap items-center gap-4 px-1 text-[11px] font-medium text-slate-700">
+      {legendItems.map((item) => (
+        <div class="flex items-center gap-2">
+          <span
+            class="inline-block h-3 w-3 rounded-sm border border-slate-300"
+            style={{ backgroundColor: item.color }}
+          />
+          <span>{item.label}</span>
+        </div>
+      ))}
+    </div>
     <Fragment set:html={plot.outerHTML} />
   </div>
 </div>
