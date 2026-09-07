@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
 
 :root {
   --text-light: #fffaf2;
@@ -8,19 +8,29 @@
   --panel: rgba(18, 38, 50, 0.72);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'DM Sans', sans-serif;
   color: var(--text-light);
   min-height: 100vh;
-  /* L'effet coucher de soleil moderne */
   background: linear-gradient(-45deg, #2b1055, #7597de, #ff7e5f, #feb47b);
   background-size: 400% 400%;
   animation: sunsetGlow 15s ease infinite;
 }
 
-/* Animation douce du dégradé */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at top, rgba(255,255,255,0.25), transparent 45%);
+}
+
 @keyframes sunsetGlow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }

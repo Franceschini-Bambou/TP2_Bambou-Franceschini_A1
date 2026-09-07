@@ -2,9 +2,15 @@
 const { slug, title, hook } = Astro.props;
 ---
 
-<a class="plot-card card" href={`/graphiques/${slug}/`}>
-  <span class="plot-card__number">Graphique</span>
-  <h2>{title}</h2>
-  <p>{hook}</p>
-  <span class="plot-card__link">Voir le graphique <span aria-hidden="true">→</span></span>
+<a
+  class="group flex h-full flex-col rounded-3xl border border-white/10 bg-white/8 p-6 text-left shadow-xl shadow-slate-950/20 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-amber-300/60 hover:bg-white/12"
+  href={`/graphiques/${slug}/`}
+>
+  <span class="mb-4 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-amber-200">Graphique</span>
+  <h2 class="mb-3 text-2xl font-semibold text-white">{title}</h2>
+  <p class="mb-5 flex-1 text-sm leading-6 text-slate-200">{hook}</p>
+  <span class="mt-auto inline-flex items-center gap-2 font-semibold text-amber-200">
+    Voir le graphique
+    <span aria-hidden="true" class="transition-transform duration-200 group-hover:translate-x-1">→</span>
+  </span>
 </a>

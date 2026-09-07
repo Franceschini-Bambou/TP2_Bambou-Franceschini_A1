@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PlotFigure from '../../components/PlotFigure.astro';
+import { getPlotConfig, plotConfigs } from '../../assets/plotConfigs.js';
+
+export function getStaticPaths() {
+  return plotConfigs.map(({ slug }) => ({ params: { slug } }));
+}
+
+const plot = getPlotConfig(Astro.params.slug);
+
+if (!plot) {
+  return Astro.redirect('/');
+}
+---
+
+<Layout>
+  <Fragment slot="head">
+    <title>{plot.title} | Penguins Plot</title>
+  </Fragment>
+
+  <main class="min-h-screen px-6 py-10 text-slate-100">
+    <div class="mx-auto max-w-6xl">
+      <a
+        class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-amber-200 transition hover:border-amber-300 hover:text-amber-100"
+        href="/"
+      >
+        ← Tous les graphiques
+      </a>
+
+      <header class="mt-8 mb-8">
+        <p class="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-amber-200">
+          Visualisation de données
+        </p>
+        <h1 class="text-3xl font-bold text-white md:text-5xl">{plot.title}</h1>
+        <p class="mt-4 max-w-2xl text-slate-200">{plot.hook}</p>
+      </header>
+
+      <section
+        class="overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 shadow-2xl shadow-slate-950/25 backdrop-blur-sm"
+        aria-label={plot.title}
+      >
+        <PlotFigure options={plot.options} />
+      </section>
+    </div>
+  </main>
+</Layout>

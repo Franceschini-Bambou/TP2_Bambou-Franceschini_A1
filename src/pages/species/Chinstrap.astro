@@ -1,5 +1,12 @@
 ---
 import GraphicSpecies from "../../components/GraphicSpecies.astro";
+
+const species = "Chinstrap";
+const navItems = [
+  { label: "Adelie", href: "/species/Adelie" },
+  { label: "Gentoo", href: "/species/Gentoo" },
+  { label: "Chinstrap", href: "/species/Chinstrap" },
+];
 ---
 
 <html lang="fr">
@@ -7,16 +14,33 @@ import GraphicSpecies from "../../components/GraphicSpecies.astro";
     <meta charset="utf-8" />
     <title>Manchots - Chinstrap</title>
   </head>
-  <body class="p-8 bg-gray-50">
-    <nav class="mb-6 flex gap-4">
-      <a href="/species/Adelie" class="font-bold text-blue-600">Adelie</a>
-      <a href="/species/Gentoo" class="text-gray-600 hover:underline">Gentoo</a>
-      <a href="/species/Chinstrap" class="text-gray-600 hover:underline">Chinstrap</a>
+  <body class="min-h-screen text-slate-100">
+    <nav class="mx-auto max-w-5xl px-6 pt-8">
+      <div class="flex flex-wrap gap-3 rounded-full border border-white/10 bg-slate-950/20 p-3 backdrop-blur-sm">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200",
+              Astro.url.pathname === item.href
+                ? "border-amber-300 bg-amber-300/15 text-amber-100 shadow-lg shadow-amber-400/20"
+                : "border-white/10 bg-white/5 text-slate-200 hover:border-amber-300/60 hover:text-amber-100",
+            ]}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
     </nav>
 
-    <h1 class="text-2xl font-bold mb-4">Espèce : Chinstrap</h1>
-    
-    <!-- Utilisation du composant -->
-    <GraphicSpecies species="Chinstrap" />
+    <main class="mx-auto max-w-5xl px-6 py-10">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-slate-950/25 backdrop-blur-sm">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-amber-200">Espèce</p>
+        <h1 class="mt-2 text-3xl font-bold text-white">{species}</h1>
+        <div class="mt-6">
+          <GraphicSpecies species={species} />
+        </div>
+      </div>
+    </main>
   </body>
 </html>

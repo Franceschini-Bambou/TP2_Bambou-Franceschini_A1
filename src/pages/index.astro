@@ -1,21 +1,38 @@
 ---
-import PlotFigure from "../components/PlotFigure.astro";
-import Layout from "../layouts/Layout.astro";
-import * as Plot from "@observablehq/plot";
-import penguins from "../assets/penguins.json";
+import Layout from '../layouts/Layout.astro';
+import PlotCard from '../components/PlotCard.astro';
+import { plotConfigs } from '../assets/plotConfigs.js';
 ---
 
 <Layout>
-  <h1 class="text-2xl">Test Astro et Plot (Observablehq)</h1>
-  <PlotFigure
-    options={{
-      marks: [
-        Plot.dot(penguins, {
-          x: "culmen_length_mm",
-          y: "culmen_depth_mm",
-          stroke: "species",
-        }),
-      ],
-    }}
-  />
+  <Fragment slot="head">
+    <title>TP Développement de Services - Plot</title>
+  </Fragment>
+
+  <main class="min-h-screen px-6 py-10 text-slate-100">
+    <div class="mx-auto max-w-6xl">
+      <header class="mb-12 pt-6">
+        <p class="mb-4 text-xs font-bold uppercase tracking-[0.22em] text-amber-200">
+          Palmer Penguins · Observable Plot
+        </p>
+        <h1 class="text-4xl font-bold tracking-tight text-white md:text-6xl">
+          Trois regards sur les pingouins
+        </h1>
+        <p class="mt-5 max-w-2xl text-base leading-7 text-slate-200 md:text-lg">
+          Explorez les liens entre morphologie, masse et espèces à travers des visualisations interactives.
+        </p>
+      </header>
+
+      <section aria-labelledby="charts-title" class="mt-8">
+        <h2 id="charts-title" class="mb-6 text-2xl font-semibold text-white">
+          Choisir une visualisation
+        </h2>
+        <div class="grid gap-6 md:grid-cols-3">
+          {plotConfigs.map((plot) => (
+            <PlotCard slug={plot.slug} title={plot.title} hook={plot.hook} />
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
 </Layout>

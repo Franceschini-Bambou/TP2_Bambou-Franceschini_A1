@@ -1,28 +1,42 @@
 ---
 import * as Plot from "@observablehq/plot";
 import { JSDOM } from "jsdom";
-
-const { species } = Astro.props;
-
 import penguins from "../assets/penguins.json";
 
+const { species } = Astro.props;
 const filteredData = penguins.filter((p) => p.species === species);
-
 const { document } = new JSDOM("<!DOCTYPE html><html><body></body></html>").window;
 
-const plot = Plot.dot(filteredData, {
-  x: "bill_length_mm",
-  y: "bill_depth_mm",
-  stroke: "sex"
-}).plot({
+const plot = Plot.plot({
   document,
-  inset: 10,
+  inset: 12,
   grid: true,
-  title: `Manchots de l'espèce ${species}`
+  nice: true,
+  title: `Manchots ${species}`,
+  x: { label: "Longueur du bec (mm)", nice: true },
+  y: { label: "Profondeur du bec (mm)", nice: true },
+  color: { legend: true },
+  style: {
+    background: "rgba(255,255,255,0.92)",
+    fontFamily: "DM Sans, sans-serif",
+    fontSize: "12px",
+  },
+  marks: [
+    Plot.dot(filteredData, {
+      x: "bill_length_mm",
+      y: "bill_depth_mm",
+      stroke: "sex",
+      fill: "sex",
+      r: 4,
+      opacity: 0.9,
+      tip: true,
+    }),
+  ],
 });
 ---
 
-<div class="my-4 p-4 border rounded-lg shadow-sm bg-white">
-  <!-- On injecte le SVG généré par Plot -->
-  <Fragment set:html={plot.outerHTML} />
+<div class="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/25 p-3 shadow-2xl shadow-slate-950/20 backdrop-blur-sm">
+  <div class="rounded-xl border border-white/10 bg-white/90 p-2">
+    <Fragment set:html={plot.outerHTML} />
+  </div>
 </div>
